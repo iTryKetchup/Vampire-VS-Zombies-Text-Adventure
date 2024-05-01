@@ -4,19 +4,25 @@ def show_instructions():
     print("'go [north, south, east or west]' to move")
     print("'inspect' to look around")
     print("'back' to return to the previous room")
-
-def main():
-    rooms = {
-        'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'}, 
-        'cliffs': {'west': 'Rubble'}, 
-        'lake': {'east': 'Rubble'}, 
-        'desert': {'north': 'Rubble'}
+    print("'exit' to quit the game")
+    print('\nType 'start' to begin your adventure or "exit' to quit:")
+    
+    def start_game():
+        print("Enter Text")
+        print("Enter Text 2")
+        print("Enter Text 3")
+        show_instrutions()
+        
+        rooms = {
+            'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'}, 
+            'cliffs': {'west': 'Rubble'}, 
+            'lake': {'east': 'Rubble'}, 
+            'desert': {'north': 'Rubble'}
+            'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'),
     }
    
     current_room = 'Rubble'
-    room_history = [current_room] 
-    
-    show_instructions()
+    room_history = [current_room]
     
     while True:
        command = input(">").strip().lower()
@@ -40,9 +46,9 @@ def main():
        elif command == 'exit':
                break
        else:
-            print("Invalid Command")
+            print("That was a BAD choice! Try Again!")
             
        print(f"Current Room: {current_room}")
        
 if __name__ == "__main__":
-    main()
+    show_instructions()
