@@ -7,6 +7,15 @@ def show_instructions():
     print("'exit' to quit the game")
     print("\nType 'start' to begin your adventure or 'exit' to quit:")
     
+    command = input(">").strip().lower()
+    if command == 'start':
+        start_game()
+    elif command == 'exit':
+        print("Too Hard?  We get it! Goodbye!")
+    else:
+        print("Did you type that correctly? Please type 'start' to begin or 'exit' to quit.")
+        show_instructions
+        
     def start_game():
         print("Enter Text")
         print("Enter Text 2")
@@ -16,7 +25,7 @@ def show_instructions():
              'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'},
              'cliffs': {'west': 'Rubble'},
              'lake': {'east': 'Rubble'},
-             'desert': {'north': 'Rubble'}
+             'desert': {'north': 'Rubble'},
              'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'},
              }
    
