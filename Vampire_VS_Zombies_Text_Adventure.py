@@ -1,25 +1,24 @@
 def show_instructions():
     print("Vampires VS Zombies Text Adventure v0.01")
-    print("Commands:")
+    print("Instructions:")
     print("'go [north, south, east or west]' to move")
     print("'inspect' to look around")
     print("'back' to return to the previous room")
     print("'exit' to quit the game")
-    print('\nType 'start' to begin your adventure or "exit' to quit:")
+    print("\nType 'start' to begin your adventure or 'exit' to quit:")
     
     def start_game():
         print("Enter Text")
         print("Enter Text 2")
         print("Enter Text 3")
-        show_instrutions()
-        
+            
         rooms = {
-            'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'}, 
-            'cliffs': {'west': 'Rubble'}, 
-            'lake': {'east': 'Rubble'}, 
-            'desert': {'north': 'Rubble'}
-            'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'),
-    }
+             'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'},
+             'cliffs': {'west': 'Rubble'},
+             'lake': {'east': 'Rubble'},
+             'desert': {'north': 'Rubble'}
+             'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'},
+             }
    
     current_room = 'Rubble'
     room_history = [current_room]
