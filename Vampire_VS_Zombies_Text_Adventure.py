@@ -6,28 +6,30 @@ def show_instructions():
     print("'back' to return to the previous room")
     print("'exit' to quit the game")
     print("\nType 'start' to begin your adventure or 'exit' to quit:")
-    
-    command = input(">").strip().lower()
-    if command == 'start':
-        start_game()
+
+    while True:
+        command = input(">").strip().lower()
+        if command == 'start':
+            start_game()
+            break
     elif command == 'exit':
         print("Too Hard?  We get it! Goodbye!")
+        break
     else:
         print("Did you type that correctly? Please type 'start' to begin or 'exit' to quit.")
-        show_instructions
-        
-    def start_game():
-        print("Enter Text")
-        print("Enter Text 2")
-        print("Enter Text 3")
             
-        rooms = {
-             'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'},
-             'cliffs': {'west': 'Rubble'},
-             'lake': {'east': 'Rubble'},
-             'desert': {'north': 'Rubble'},
-             'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'},
-             }
+def start_game():
+    print("Welcome to Vampires Vs Zombies a Text based adventure")
+    print("You awaken in a pile of rubble, in tattered clothing and no memory.")
+    print("As you look around you see crumbling building and skelton's laying in the street.")
+            
+    rooms = {
+        'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'},
+        'cliffs': {'west': 'Rubble'},
+        'lake': {'east': 'Rubble'},
+        'desert': {'north': 'Rubble'},
+        'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'},
+    }
    
     current_room = 'Rubble'
     room_history = [current_room]
