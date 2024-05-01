@@ -12,11 +12,11 @@ def show_instructions():
         if command == 'start':
             start_game()
             break
-    elif command == 'exit':
-        print("Too Hard?  We get it! Goodbye!")
-        break
-    else:
-        print("Did you type that correctly? Please type 'start' to begin or 'exit' to quit.")
+        elif command == 'exit':
+            print("Too Hard?  We get it! Goodbye!")
+            break
+        else:
+            print("Did you type that correctly? Please type 'start' to begin or 'exit' to quit.")
             
 def start_game():
     print("Welcome to Vampires Vs Zombies a Text based adventure")
