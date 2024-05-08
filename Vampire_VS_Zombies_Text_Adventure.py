@@ -86,61 +86,60 @@ def start_game():
     current_room = 'Rubble'
     room_history = [current_room]
 
-while True:
-    command = input(">").strip().lower()
+    while True:
+        command = input(">").strip().lower()
     
-    if command.startswith('go '):
-        parts = command.split()
-        if len(parts) > 1:
-            direction = parts[1]
-            if direction in rooms[current_room].get('directions', {}):
-                room_history.append(current_room)
-                current_room = rooms[current_room]['directions'][direction]
-                if 'enemy' in rooms[current_room]:
-                    print(f"You encounter a {rooms[current_room]['enemy']}!")
+        if command.startswith('go '):
+            parts = command.split()
+            if len(parts) > 1:
+                direction = parts[1]
+                if direction in rooms[current_room].get('directions', {}):
+                    room_history.append(current_room)
+                    current_room = rooms[current_room]['directions'][direction]
+                    if 'enemy' in rooms[current_room]:
+                        print(f"You encounter a {rooms[current_room]['enemy']}!")
+                else:
+                    print("There is no path in this direction. Try another direction.")
             else:
-                print("There is no path in this direction. Try another direction.")
-        else:
-            print("Please specify a direction to go.")
-    elif command == 'back':
-        if len(room_history) > 1:
-            current_room = room_history.pop()
-        else:
-            print("No way back!")
-    elif command == 'inspect':
-        print(rooms[current_room]['description'])
-        if rooms[current_room].get('directional_descriptions'):
-            for direction, desc in rooms[current_room]['directional_descriptions'].items():
-                print(f"To the {direction}, {desc}")
-        if rooms[current_room]['items']:
-            print("You see here:", ", ".join(rooms[current_room]['items']))
-    elif command.startswith('pick up '):
-        item = command.split('pick up ')[1]
-        if item in rooms[current_room]['items']:
-            inventory.append(item)
-            rooms[current_room]['items'].remove(item)
-            print(f"You picked up a {item}.")
-        else:
-            print(f"There is no {item} here.")
-    elif command.startswith('use '):
-        item = command.split('use ')[1]
-        if item in inventory and 'enemy' in rooms[current_room]:
-            if (item == 'knife' and rooms[current_room]['enemy'] == 'zombie') or (item == 'bat' and rooms[current_room]['enemy'] == 'vampire'):
-                print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
-                rooms[current_room].pop('enemy')  # Remove the enemy from the room
+                print("Please specify a direction to go.")
+        elif command == 'back':
+            if len(room_history) > 1:
+                current_room = room_history.pop()
             else:
-                print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
-        else:
-            print("You can't use that here.")
-    elif command == 'inventory':
-        if inventory:
-            print("You have:", ", ".join(inventory))
-        else:
-            print("Your inventory is empty.")
-    elif command == 'exit':
-        print("Thank you for playing! Goodbye!")
-        break
-
-                
+                print("No way back!")
+        elif command == 'inspect':
+            print(rooms[current_room]['description'])
+            if rooms[current_room].get('directional_descriptions'):
+                for direction, desc in rooms[current_room]['directional_descriptions'].items():
+                    print(f"To the {direction}, {desc}")
+            if rooms[current_room]['items']:
+                print("You see here:", ", ".join(rooms[current_room]['items']))
+        elif command.startswith('pick up '):
+            item = command.split('pick up ')[1]
+            if item in rooms[current_room]['items']:
+                inventory.append(item)
+                rooms[current_room]['items'].remove(item)
+                print(f"You picked up a {item}.")
+            else:
+                print(f"There is no {item} here.")
+        elif command.startswith('use '):
+            item = command.split('use ')[1]
+            if item in inventory and 'enemy' in rooms[current_room]:
+                if (item == 'knife' and rooms[current_room]['enemy'] == 'zombie') or (item == 'bat' and rooms[current_room]['enemy'] == 'vampire'):
+                    print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
+                    rooms[current_room].pop('enemy')  # Remove the enemy from the room
+                else:
+                    print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
+            else:
+                print("You can't use that here.")
+        elif command == 'inventory':
+            if inventory:
+                print("You have:", ", ".join(inventory))
+            else:
+                print("Your inventory is empty.")
+        elif command == 'exit':
+            print("Thank you for playing! Goodbye!")
+            break
+    
 if __name__ == "__main__":
     show_instructions()
