@@ -1,64 +1,84 @@
 def show_instructions():
-    print("Vampires VS Zombies Text Adventure v0.01")
-    print("Instructions:")
+    print("Vampires VS Zombies Text Adventure v0.02")
+    print("Instructions.")
     print("'go [north, south, east or west]' to move")
+    print("'pick up [item]' to add item to your inventory")
+    print("'inventory' to check your items")
     print("'inspect' to look around")
-    print("'back' to return to the previous room")
+    print("'back' to return to previous room")
     print("'exit' to quit the game")
-    print("\nType 'start' to begin your adventure or 'exit' to quit:")
-
+    print("\nType 'start' to begin your adventure or 'exit' to quit.")
+    
     while True:
         command = input(">").strip().lower()
         if command == 'start':
             start_game()
             break
         elif command == 'exit':
-            print("Too Hard?  We get it! Goodbye!")
+            print("Thank you for playing! Goodbye!")
             break
         else:
             print("Did you type that correctly? Please type 'start' to begin or 'exit' to quit.")
-            
+
 def start_game():
-    print("Welcome to Vampires Vs Zombies a Text based adventure")
-    print("You awaken in a pile of rubble, in tattered clothing and no memory.")
-    print("As you look around you see crumbling building and skelton's laying in the street.")
-            
+    print("Story Line 1")
+    print("Story Line 2")
+    print("Story Line 3")
+    
     rooms = {
-        'Rubble': {'east': 'cliffs', 'west': 'lake', 'south': 'desert', 'north': 'Burning City'},
-        'cliffs': {'west': 'Rubble'},
-        'lake': {'east': 'Rubble'},
-        'desert': {'north': 'Rubble'},
-        'Burning City': {'east': 'Sewers', 'west': 'Military Base', 'south': 'rubble', 'north': 'Bowling Alley'},
+        'Rubble': {'description': "You are in the Rubble.", 'items': ['map', 'flashlight'], 'east': 'Cliffs', 'west': 'Lake', 'south': 'Desert', 'north': 'Burning City'},
+        'Cliffs': {'description': "You are at the Cliffs.", 'items': ['rope'], 'west': 'Rubble'},
+        'Lake': {'description': "You are by the Lake.", 'items': ['water bottle'], 'east': 'Rubble'},
+        'Desert': {'description': "You are in the Desert.", 'items': ['sun hat'], 'north': 'Rubble'},
+        'Burning City': {'description': "You are in the Burning City.", 'items': ['fire extinguisher'], 'east': 'Sewers', 'west': 'Military Base', 'south': 'Rubble', 'north': 'Bowling Alley'},
     }
-   
+    
+    inventory = []
+
     current_room = 'Rubble'
     room_history = [current_room]
-    
+
     while True:
-       command = input(">").strip().lower()
-       
-       if command in ['go east', 'go west', 'go north', 'go south']:
+        command = input(">").strip().lower()
+        
+        if command.startswith('go '):
             direction = command.split()[1]
             if direction in rooms[current_room]:
-               room_history.append(current_room) 
-               current_room = rooms[current_room][direction]
+                room_history.append(current_room)
+                current_room = rooms[current_room][direction]
             else:
-               print("You have choosen wrong and a zombie is chasing you. Return to where you came from.")
-               if len(room_history) > 1: 
-                  current_room = room_history.pop()
-       elif command == 'back':
+                print("You cannot go that way. A zombie might be waiting!")
+                if len(room_history) > 1:
+                    current_room = room_history.pop()
+        elif command == 'back':
             if len(room_history) > 1:
-               current_room = room_history.pop()
+                current_room = room_history.pop()
             else:
                 print("No way back!")
-       elif command == 'inspect':
-                print(f"You are in the {current_room}")
-       elif command == 'exit':
-               break
-       else:
-            print("That was a BAD choice! Try Again!")
+        elif command == 'inspect':
+            print(rooms[current_room]['description'])
+            if rooms[current_room]['items']:
+                print("You see here:", ", ".join(rooms[current_room]['items']))
+        elif command.startswith('pick up '):
+            item = command.split('pick up ')[1]
+            if item in rooms[current_room]['items']:
+                inventory.append(item)
+                rooms[current_room]['items'].remove(item)
+                print(f"You picked up a {item}.")
+            else:
+                print(f"There is no {item} here.")
+        elif command == 'inventory':
+            if inventory:
+                print("You have:", ", ".join(inventory))
+            else:
+                print("Your inventory is empty.")
+        elif command == 'exit':
+            print("Thank you for playing! Goodbye!")
+            break
+        else:
+            print("Unknown command! Try Again!")
             
-       print(f"Current Room: {current_room}")
-       
+        print(f"Current Room: {current_room}")
+        
 if __name__ == "__main__":
     show_instructions()
