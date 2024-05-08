@@ -81,4 +81,11 @@ def start_game():
                     print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
             else:
                 print("You can't use that here.")
-        elif command == 'inventory
+        elif command == 'inventory":
+            if inventory:
+                print("you have:", ", ".join(inventory))
+            else:
+                print("your inventory is empty.")
+                
+if __name__ == "__main__":
+    show_instructions()
