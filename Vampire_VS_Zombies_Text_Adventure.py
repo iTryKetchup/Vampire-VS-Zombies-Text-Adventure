@@ -29,11 +29,57 @@ def start_game():
     print("Story Line 3")
     
     rooms = {
-        'Rubble': {'description': "You are in the Rubble.", 'items': ['knife', 'bat'], 'east': 'Cliffs', 'west': 'Lake', 'south': 'Desert', 'north': 'Burning City'},
-        'Cliffs': {'description': "You are at the Cliffs.", 'items': [], 'enemy': 'vampire'},
-        'Lake': {'description': "You are by the Lake.", 'items': [], 'enemy': 'zombie'},
-        'Desert': {'description': "You are in the Desert.", 'items': [], 'enemy': 'zombie'},
-        'Burning City': {'description': "You are in the Burning City.", 'items': [], 'enemy': 'vampire'},
+        'Rubble': {
+            'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town.",
+            'items': ['knife', 'bat'],
+            'directions': {
+                'east': 'Cliffs',
+                'west': 'Lake',
+                'south': 'Desert',
+                'north': 'Burning City'
+            },
+            'directional_descriptions': {
+                'east': "East towards the eerie Cliffs.",
+                'west': "West to the misty Lake.",
+                'south': "South into the hot Desert.",
+                'north': "North towards the ominous Burning City."
+            }
+        },
+        'Cliffs': {
+            'description': "You are at the Cliffs, where you can hear the distant crashing of waves below.",
+            'items': [],
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'west': "Back west to the Rubble."
+            }
+        },
+        'Lake': {
+            'description': "You are by the Lake, its waters dark and foreboding.",
+            'items': [],
+            'enemy': 'zombie',
+            'directional_descriptions': {
+                'east': "Eastward leads back to Rubble."
+            }
+        },
+        'Desert': {
+            'description': "You are in the Desert, surrounded by endless sand under the scorching sun.",
+            'items': [],
+            'enemy': 'zombie',
+            'directional_descriptions': {
+                'north': "Northwards will take you back to Rubble."
+            }
+        },
+        'Burning City': {
+            'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins.",
+            'items': [],
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to Sewers",
+                'west': "West to Military Base",
+                'south': "South to Rubble",
+                'north': "North to Bowling Alley"
+            }
+        },
     }
     
     inventory = []
@@ -44,20 +90,16 @@ def start_game():
         command = input(">").strip().lower()
         
         if command.startswith('go '):
-            parts = command.split()
-            if len(parts) > 1:
-                direction = parts[1]
-                if direction in rooms[current_room]:
-                    room_history.append(current_room)
-                    current_room = rooms[current_room][direction]
-                    if 'enemy' in rooms[current_room]:
-                        print(f"You encounter a {rooms[current_room]['enemy']}!")
-                else:
-                    print("You cannot go that way. A zombie might be waiting!")
-                    if len(room_history) > 1:
-                        current_room = room_history.pop()
+            direction = command.split()[1]
+            if direction in rooms[current_room]['directions']:
+                room_history.append(current_room)
+                current_room = rooms[current_room]['directions'][direction]
+                if 'enemy' in rooms[current_room]:
+                    print(f"You encounter a {rooms[current_room]['enemy']}!")
             else:
-                print("Please specify a direction to go.")
+                print("You cannot go that way. A zombie might be waiting!")
+                if len(room_history) > 1:
+                    current_room = room_history.pop()
         elif command == 'back':
             if len(room_history) > 1:
                 current_room = room_history.pop()
@@ -65,34 +107,29 @@ def start_game():
                 print("No way back!")
         elif command == 'inspect':
             print(rooms[current_room]['description'])
+            if rooms[current_room].get('directional_descriptions'):
+                for direction, desc in rooms[current_room]['directional_descriptions'].items():
+                    print(f"To the {direction}, {desc}")
             if rooms[current_room]['items']:
                 print("You see here:", ", ".join(rooms[current_room]['items']))
         elif command.startswith('pick up '):
-            parts = command.split('pick up ')
-            if len(parts) > 1:
-                item = parts[1]
-                if item in [i.lower() for i in rooms[current_room]['items']]:  # Case-insensitive match
-                    inventory.append(item)
-                    rooms[current_room]['items'].remove(item)
-                    print(f"You picked up a {item}.")
-                else:
-                    print(f"There is no {item} here.")
+            item = command.split('pick up ')[1]
+            if item in rooms[current_room]['items']:
+                inventory.append(item)
+                rooms[current_room]['items'].remove(item)
+                print(f"You picked up a {item}.")
             else:
-                print("Please specify an item to pick up.")
+                print(f"There is no {item} here.")
         elif command.startswith('use '):
-            parts = command.split('use ')
-            if len(parts) > 1:
-                item = parts[1]
-                if item in inventory and 'enemy' in rooms[current_room]:
-                    if (item == 'knife' and rooms[current_room]['enemy'] == 'zombie') or (item == 'bat' and rooms[current_room]['enemy'] == 'vampire'):
-                        print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
-                        rooms[current_room].pop('enemy')  # Remove the enemy from the room
-                    else:
-                        print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
+            item = command.split('use ')[1]
+            if item in inventory and 'enemy' in rooms[current_room]:
+                if (item == 'knife' and rooms[current_room]['enemy'] == 'zombie') or (item == 'bat' and rooms[current_room]['enemy'] == 'vampire'):
+                    print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
+                    rooms[current_room].pop('enemy')  # Remove the enemy from the room
                 else:
-                    print("You can't use that here.")
+                    print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
             else:
-                print("Please specify an item to use.")
+                print("You can't use that here.")
         elif command == 'inventory':
             if inventory:
                 print("You have:", ", ".join(inventory))
