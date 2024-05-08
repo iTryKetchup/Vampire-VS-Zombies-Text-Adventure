@@ -27,10 +27,11 @@ def start_game():
     print("Story Line 1")
     print("Story Line 2")
     print("Story Line 3")
+    print("Use the knife to defeat a vampire, Use the Bat to destroy a Zombie")
     
     rooms = {
         'Rubble': {
-            'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town.",
+            'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town. You see a bright light ahead",
             'items': ['knife', 'bat'],
             'directions': {
                 'east': 'Cliffs',
@@ -54,7 +55,7 @@ def start_game():
             }
         },
         'Lake': {
-            'description': "You are by the Lake, its waters dark and foreboding.",
+            'description': "You are by the Lake, its waters dark and foreboding. No way to cross visible",
             'items': [],
             'enemy': 'zombie',
             'directional_descriptions': {
@@ -62,7 +63,7 @@ def start_game():
             }
         },
         'Desert': {
-            'description': "You are in the Desert, surrounded by endless sand under the scorching sun.",
+            'description': "You are in the Desert, surrounded by endless sand under the scorching sun. No water or transportation around try another route.",
             'items': [],
             'enemy': 'zombie',
             'directional_descriptions': {
@@ -70,7 +71,7 @@ def start_game():
             }
         },
         'Burning City': {
-            'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins.",
+            'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins. Maybe underground will shelter you",
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
@@ -78,6 +79,17 @@ def start_game():
                 'west': "West to Military Base",
                 'south': "South to Rubble",
                 'north': "North to Bowling Alley"
+            }
+        },
+        'Military Base': {
+            'description': "You at a Military Base in ruins.  Its a scary site with desolation in all directions.",
+            'items': [],
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to Burning City",
+                'west': "West to the More Lake",
+                'south': "South to the Lake",
+                'north': "North to Chasm"
             }
         },
     }
@@ -124,14 +136,17 @@ def start_game():
                 print(f"There is no {item} here.")
         elif command.startswith('use '):
             item = command.split('use ')[1]
-            if item in inventory and 'enemy' in rooms[current_room]:
-                if (item == 'knife' and rooms[current_room]['enemy'] == 'zombie') or (item == 'bat' and rooms[current_room]['enemy'] == 'vampire'):
+            if item in inventory:
+                if 'enemy' in rooms[current_room]:
+                    if (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or (item == 'bat' and rooms[current_room]['enemy'] == 'zombie'):
                     print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
                     rooms[current_room].pop('enemy')  # Remove the enemy from the room
                 else:
-                    print(f"The {item} has no effect on the {rooms[current_room]['enemy']}.")
+                    print("Wrong weapon chosen. Try again.")
             else:
-                print("You can't use that here.")
+                print("There's nothing here to use that on.")
+        else:
+            print("You don't have that item in your inventory.")
         elif command == 'inventory':
             if inventory:
                 print("You have:", ", ".join(inventory))
