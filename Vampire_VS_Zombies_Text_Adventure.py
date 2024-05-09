@@ -86,10 +86,32 @@ def start_game():
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
-                'east': "East to Burning City",
+                'east': "East to the Burning City",
                 'west': "West to the More Lake",
                 'south': "South to the Lake",
-                'north': "North to Chasm"
+                'north': "North to The Chasm"
+            }
+        },
+        'Bowling Alley': {
+            'description': "You Wander upon a Bowling alley crawling with Vampires and Zombies.",
+            'items': [],
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to the Mall",
+                'west': "West to The Chasm",
+                'south': "South to the Burning City",
+                'north': "North to the Auto Park"
+            }
+        },
+        'Sewers': {
+            'description': "You are safe in the sewers. It smells but you see another light in the dpeths of the sewer.",
+            'items': [],
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to the ",
+                'west': "West to the ",
+                'south': "South to the ",
+                'north': "North to the "
             }
         },
     }
