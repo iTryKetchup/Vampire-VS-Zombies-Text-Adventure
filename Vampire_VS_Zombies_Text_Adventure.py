@@ -2,14 +2,14 @@ import random
 
 def show_instructions():
     print("Vampires VS Zombies Text Adventure v0.02")
-    print("Instructions.")
-    print("'go [north, south, east or west]' to move")
-    print("'pick up [item]' to add item to your inventory")
-    print("'use [item]' to use an item from your inventory")
-    print("'inventory' to check your items")
-    print("'inspect' to look around")
-    print("'back' to return to previous room")
-    print("'exit' to quit the game")
+    print("Instructions:")
+    print("'go [north, south, east, or west]' to move.")
+    print("'pick up [item]' to add item to your inventory.")
+    print("'use [item]' to use an item from your inventory.")
+    print("'inventory' to check your items.")
+    print("'inspect' to look around.")
+    print("'back' to return to the previous room.")
+    print("'exit' to quit the game.")
     print("\nType 'start' to begin your adventure or 'exit' to quit.")
     
     while True:
@@ -27,11 +27,11 @@ def start_game():
     print("Story Line 1")
     print("Story Line 2")
     print("Story Line 3")
-    print("Use the knife to defeat a vampire, Use the Bat to destroy a Zombie")
+    print("Use the knife to defeat a vampire, Use the Bat to destroy a zombie.")
     
     rooms = {
         'Rubble': {
-            'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town. You see a bright light ahead",
+            'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town. You see a bright light ahead.",
             'items': ['knife', 'bat'],
             'directions': {
                 'east': 'Cliffs',
@@ -55,7 +55,7 @@ def start_game():
             }
         },
         'Lake': {
-            'description': "You are by the Lake, its waters dark and foreboding. No way to cross visible",
+            'description': "You are by the Lake, its waters dark and foreboding. No way to cross visible.",
             'items': [],
             'enemy': 'zombie',
             'directional_descriptions': {
@@ -63,7 +63,7 @@ def start_game():
             }
         },
         'Desert': {
-            'description': "You are in the Desert, surrounded by endless sand under the scorching sun. No water or transportation around try another route.",
+            'description': "You are in the Desert, surrounded by endless sand under the scorching sun. No water or transportation around; try another route.",
             'items': [],
             'enemy': 'zombie',
             'directional_descriptions': {
@@ -71,7 +71,7 @@ def start_game():
             }
         },
         'Burning City': {
-            'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins. Maybe underground will shelter you",
+            'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins. Maybe underground will shelter you.",
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
@@ -82,18 +82,18 @@ def start_game():
             }
         },
         'Military Base': {
-            'description': "You at a Military Base in ruins.  Its a scary site with desolation in all directions.",
+            'description': "You are at a Military Base in ruins. It's a scary site with desolation in all directions.",
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
                 'east': "East to the Burning City",
-                'west': "West to the More Lake",
+                'west': "West to More Lake",
                 'south': "South to the Lake",
                 'north': "North to The Chasm"
             }
         },
         'Bowling Alley': {
-            'description': "You Wander upon a Bowling alley crawling with Vampires and Zombies.",
+            'description': "You wander upon a Bowling Alley crawling with vampires and zombies.",
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
@@ -104,14 +104,14 @@ def start_game():
             }
         },
         'Sewers': {
-            'description': "You are safe in the sewers. It smells but you see another light in the dpeths of the sewer.",
+            'description': "You are safe in the sewers. It smells, but you see another light in the depths of the sewer.",
             'items': [],
             'enemy': 'vampire',
             'directional_descriptions': {
-                'east': "East to the ",
-                'west': "West to the ",
-                'south': "South to the ",
-                'north': "North to the "
+                'east': "East to the Unknown",
+                'west': "West to the Unknown",
+                'south': "South to the Unknown",
+                'north': "North to the Unknown"
             }
         },
     }
@@ -161,14 +161,14 @@ def start_game():
             if item in inventory:
                 if 'enemy' in rooms[current_room]:
                     if (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or (item == 'bat' and rooms[current_room]['enemy'] == 'zombie'):
-                    print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
-                    rooms[current_room].pop('enemy')  # Remove the enemy from the room
+                        print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
+                        rooms[current_room].pop('enemy')  # Remove the enemy from the room
+                    else:
+                        print("Wrong weapon chosen. Try again.")
                 else:
-                    print("Wrong weapon chosen. Try again.")
+                    print("There's nothing here to use that on.")
             else:
-                print("There's nothing here to use that on.")
-        else:
-            print("You don't have that item in your inventory.")
+                print("You don't have that item in your inventory.")
         elif command == 'inventory':
             if inventory:
                 print("You have:", ", ".join(inventory))
