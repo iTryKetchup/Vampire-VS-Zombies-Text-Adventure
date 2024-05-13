@@ -181,13 +181,18 @@ def start_game():
                 'west': 'Sewers',
         },
             'directional_descriptions': {
-                'east': "East towards Maintenance Tunnels.",
-                'west': "West to the Sewers.",
-                'south': "South into a wall.",
-                'north': "North is a flooded tunnel."
-            }
+                'east': "Too dark to see.",
+                'west': "Too dark to see.",
+                'south': "Too dark to see.",
+                'north': "Too dark to see."
+            },
+            'flashlight_descriptions': {  
+              'east': "East to the Maintenance Tunnels",
+              'west': "West to the Sewers",
+              'south': "South no access",
+              'north': "North no access"
         },
-    }
+  }}
     
     inventory = []
     current_room = 'Rubble'
