@@ -173,6 +173,20 @@ def start_game():
                 'north': "North is a wall"
             }
         },
+        'Subway Tunnel': {
+            'description': "You are in a subway tunnel it is very very Dark.",
+            'items': [],
+            'directions': {
+                'east': 'Maintenance Tunnels',
+                'west': 'Sewers',
+        },
+            'directional_descriptions': {
+                'east': "East towards Maintenance Tunnels.",
+                'west': "West to the Sewers.",
+                'south': "South into a wall.",
+                'north': "North is a flooded tunnel."
+            }
+        },
     }
     
     inventory = []
