@@ -49,6 +49,9 @@ def start_game():
         'Cliffs': {
             'description': "You are at the Cliffs, where you can hear the distant crashing of waves below.",
             'items': [],
+            'directions': {
+                'west': 'Rubble',
+        },
             'enemy': 'vampire',
             'directional_descriptions': {
                 'west': "Back west to the Rubble."
@@ -57,6 +60,10 @@ def start_game():
         'Lake': {
             'description': "You are by the Lake, its waters dark and foreboding. No way to cross visible.",
             'items': [],
+            'directions': {
+                'east': 'Rubble',
+                'north': 'Military Base'
+            },
             'enemy': 'zombie',
             'directional_descriptions': {
                 'east': "Eastward leads back to Rubble."
@@ -65,6 +72,9 @@ def start_game():
         'Desert': {
             'description': "You are in the Desert, surrounded by endless sand under the scorching sun. No water or transportation around; try another route.",
             'items': [],
+            'directions': {
+                'north': 'Rubble'
+            },
             'enemy': 'zombie',
             'directional_descriptions': {
                 'north': "Northwards will take you back to Rubble."
@@ -73,6 +83,12 @@ def start_game():
         'Burning City': {
             'description': "You are in the Burning City, where the air is thick with smoke and the heat of smoldering ruins. Maybe underground will shelter you.",
             'items': [],
+            'directions': {
+                'east': 'Sewers',
+                'west': 'Military Base',
+                'south': 'Rubble',
+                'north': 'Bowling Alley'
+            },
             'enemy': 'vampire',
             'directional_descriptions': {
                 'east': "East to Sewers",
@@ -83,18 +99,57 @@ def start_game():
         },
         'Military Base': {
             'description': "You are at a Military Base in ruins. It's a scary site with desolation in all directions.",
-            'items': [],
+            'items': ['pistol'],
+            'directions': {
+                'east': 'Burning City',
+                'west': 'River',
+                'south': 'Lake',
+                'north': 'Chasm'
+            },
             'enemy': 'vampire',
             'directional_descriptions': {
                 'east': "East to the Burning City",
-                'west': "West to More Lake",
+                'west': "West there is a raging River",
                 'south': "South to the Lake",
                 'north': "North to The Chasm"
+            }
+        },
+        'River': {
+            'description': "You are at River's edge.",
+            'items': [],
+            'directions': {
+                'east': 'Military Base',
+        },
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to the Military Base",
+                'west': "The river is too strong to cross",
+                'south': "Downstream looks dangerous",
+                'north': "Upstream looks unpassable"
+            }
+        },
+        'Chasm': {
+            'description': "You are at the edge of a vast Chasm.",
+            'items': [],
+            'directions': {
+                'east': 'Bowling Alley',
+                'south': 'Military Base'
+        },
+            'enemy': 'vampire',
+            'directional_descriptions': {
+                'east': "East to the Bowling Alley",
+                'west': "West there is a raging River",
+                'south': "South to the Military Base",
+                'north': "North to a big hole"
             }
         },
         'Bowling Alley': {
             'description': "You wander upon a Bowling Alley crawling with vampires and zombies.",
             'items': [],
+            'directions': {
+                'west': 'Chasm',
+                'south': 'Burning City'
+            },
             'enemy': 'vampire',
             'directional_descriptions': {
                 'east': "East to the Mall",
@@ -105,13 +160,17 @@ def start_game():
         },
         'Sewers': {
             'description': "You are safe in the sewers. It smells, but you see another light in the depths of the sewer.",
-            'items': [],
+            'items': ['flashlight'],
+            'directions': {
+                'east': 'Subway Tunnel',
+                'west': 'Burning City',
+        },
             'enemy': 'vampire',
             'directional_descriptions': {
-                'east': "East to the Unknown",
-                'west': "West to the Unknown",
-                'south': "South to the Unknown",
-                'north': "North to the Unknown"
+                'east': "You see a faint light",
+                'west': "West to the Burning City",
+                'south': "South is a wall",
+                'north': "North is a wall"
             }
         },
     }
@@ -160,7 +219,9 @@ def start_game():
             item = command.split('use ')[1]
             if item in inventory:
                 if 'enemy' in rooms[current_room]:
-                    if (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or (item == 'bat' and rooms[current_room]['enemy'] == 'zombie'):
+                    if  (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or\
+                        (item == 'bat' and rooms[current_room]['enemy'] == 'zombie') or\
+                        (item == 'pistol' and rooms[current_room]['enemy'] in ['vampire', 'zombie']):
                         print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
                         rooms[current_room].pop('enemy')  # Remove the enemy from the room
                     else:
