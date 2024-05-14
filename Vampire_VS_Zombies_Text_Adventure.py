@@ -1,7 +1,7 @@
 import random
 
 def show_instructions():
-    print("Vampires VS Zombies Text Adventure v0.02")
+    print("Vampires VS Zombies Text Adventure v0.10")
     print("Instructions:")
     print("'go [north, south, east, or west]' to move.")
     print("'pick up [item]' to add item to your inventory.")
@@ -11,7 +11,7 @@ def show_instructions():
     print("'back' to return to the previous room.")
     print("'exit' to quit the game.")
     print("\nType 'start' to begin your adventure or 'exit' to quit.")
-    
+
     while True:
         command = input(">").strip().lower()
         if command == 'start':
@@ -27,8 +27,8 @@ def start_game():
     print("Story Line 1")
     print("Story Line 2")
     print("Story Line 3")
-    print("Use the knife to defeat a vampire, Use the Bat to destroy a zombie.")
-    
+    print("Use the knife to defeat a vampire, Use the Bat to destroy a zombie, Firearms work on anything.")
+
     rooms = {
         'Rubble': {
             'description': "You are in the Rubble, a desolate place with remnants of a once-thriving town. You see a bright light ahead.",
@@ -168,7 +168,7 @@ def start_game():
             'enemy': 'vampire',
             'directional_descriptions': {
                 'east': "You see a faint light",
-                'west': "West to the Burning City",
+                'west': "West back to the Burning City",
                 'south': "South is a wall",
                 'north': "North is a wall"
             }
@@ -180,27 +180,28 @@ def start_game():
                 'east': 'Maintenance Tunnels',
                 'west': 'Sewers',
         },
+            'enemy': 'zombie',
             'directional_descriptions': {
                 'east': "Too dark to see.",
                 'west': "Too dark to see.",
                 'south': "Too dark to see.",
                 'north': "Too dark to see."
             },
-            'flashlight_descriptions': {  
+            'flashlight_descriptions': {
               'east': "East to the Maintenance Tunnels",
               'west': "West to the Sewers",
               'south': "South no access",
               'north': "North no access"
         },
   }}
-    
+
     inventory = []
     current_room = 'Rubble'
     room_history = [current_room]
 
     while True:
         command = input(">").strip().lower()
-    
+
         if command.startswith('go '):
             parts = command.split()
             if len(parts) > 1:
@@ -257,6 +258,6 @@ def start_game():
         elif command == 'exit':
             print("Thank you for playing! Goodbye!")
             break
-    
+
 if __name__ == "__main__":
     show_instructions()
