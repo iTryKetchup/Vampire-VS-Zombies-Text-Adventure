@@ -238,16 +238,20 @@ def start_game():
         elif command.startswith('use '):
             item = command.split('use ')[1]
             if item in inventory:
-                if 'enemy' in rooms[current_room]:
-                    if  (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or\
-                        (item == 'bat' and rooms[current_room]['enemy'] == 'zombie') or\
-                        (item == 'pistol' and rooms[current_room]['enemy'] in ['vampire', 'zombie']):
-                        print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
-                        rooms[current_room].pop('enemy')  # Remove the enemy from the room
-                    else:
-                        print("Wrong weapon chosen. Try again.")
+              if item == 'flashlight' and 'flashlight_descriptions' in rooms[current_room]:
+                print("You turn on the flashlight, revealing:")
+                for direction, desc in rooms[current_room]['flashlight_descriptions'].items():
+                    print(f"To the {direction}, {desc}")
+              elif 'enemy' in rooms[current_room]:
+                if  (item == 'knife' and rooms[current_room]['enemy'] == 'vampire') or\
+                  (item == 'bat' and rooms[current_room]['enemy'] == 'zombie') or\
+                  (item == 'pistol' and rooms[current_room]['enemy'] in ['vampire', 'zombie']):
+                  print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
+                  rooms[current_room].pop('enemy')
                 else:
-                    print("There's nothing here to use that on.")
+                  print("Wrong weapon chosen. Try again.")
+              else:
+                print("There's nothing here to use that on.")
             else:
                 print("You don't have that item in your inventory.")
         elif command == 'inventory':
