@@ -249,7 +249,14 @@ def start_game():
                   print(f"You have defeated the {rooms[current_room]['enemy']} with the {item}!")
                   rooms[current_room].pop('enemy')
                 else:
-                  print("Wrong weapon chosen. Try again.")
+                  print(f"The {rooms[current_room]['enemy']} has killed you. Type restart to continue.")
+                  print("Game Over!")
+                  choice = input(">").strip().lower()
+                  if choice == 'restart':
+                    show_instructions()
+                  elif choice == 'exit':
+                    print("Thank you for playing! Good Bye!")
+                  break
               else:
                 print("There's nothing here to use that on.")
             else:
