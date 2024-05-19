@@ -1,7 +1,7 @@
 import random
 
 def show_instructions():
-    print("Vampires VS Zombies Text Adventure v1.0")
+    print("Vampires VS Zombies Text Adventure v0.10")
     print("Instructions:")
     print("'go [north, south, east, or west]' to move.")
     print("'pick up [item]' to add item to your inventory.")
